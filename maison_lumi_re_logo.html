@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison Lumière - Logo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: #1A1A1A; /* Deep Midnight Charcoal */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif; /* Fallback */
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            /* Subtle fade-in animation for presentation */
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .star-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Vertical light beam */
+        .star-container::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
+            border-radius: 50%;
+        }
+
+        /* Horizontal light beam */
+        .star-container::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #D4AF37, transparent);
+            border-radius: 50%;
+        }
+
+        /* Glowing center diamond */
+        .star-center {
+            position: relative;
+            z-index: 2;
+            width: 10px;
+            height: 10px;
+            background-color: #D4AF37; /* Minimalist golden sunburst */
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px 2px rgba(212, 175, 55, 0.6);
+        }
+
+        .main-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem; /* Elegant, large sizing */
+            color: #FDFBF7; /* Warm Ivory */
+            font-weight: 400;
+            margin: 0;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            color: #C5A059; /* Darker gold/champagne */
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-top: 16px;
+            font-weight: 400;
+            /* Compensate for letter-spacing to ensure perfect centering */
+            margin-right: -6px; 
+        }
+
+        /* Responsive adjustments for smaller screens */
+        @media (max-width: 600px) {
+            .main-text {
+                font-size: 2.8rem;
+            }
+            .star-container {
+                width: 45px;
+                height: 45px;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        
+        <!-- Pure CSS Icon -->
+        <div class="star-container">
+            <div class="star-center"></div>
+        </div>
+
+        <!-- Typography -->
+        <h1 class="main-text">Maison Lumière</h1>
+        <div class="subtitle">French Cuisine</div>
+
+    </div>
+
+</body>
+</html>
