@@ -1,0 +1,9 @@
+
+.bd-ra, .owl-prev, .owl-next { behavior:url(js/PIE.htc); position:relative;}
+.index .block-4 .element .filler {display: none}
+.index .block-4 .element:hover .filler {display: block;}
+.index-3 #touch_gallery a > div {display: none;}
+#contact-form input {
+	width: 98%;
+}
+#contact-form textarea {width: 98%;}
