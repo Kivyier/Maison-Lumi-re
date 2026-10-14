@@ -57,7 +57,6 @@ if (menuGrid && orderDialog) {
   const renderOrder = () => {
     const itemCount = getItemCount();
     const orderTotal = getOrderTotal();
-    cartButton.hidden = itemCount === 0;
     countDisplay.textContent = String(itemCount);
     cartTotalDisplay.textContent = formatPrice(orderTotal);
     cartButton.setAttribute(
