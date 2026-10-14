@@ -25,7 +25,7 @@
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <a href="index.html#story">Our story</a>
       <a href="menu.html" aria-current="page">Menu</a>
-      <a href="#menu">Order</a>
+      <a href="#order-summary">Order</a>
       <a href="index.html#location">Find us</a>
       <a class="nav-booking" href="index.html#reserve">Book a table <span aria-hidden="true">↗</span></a>
     </nav>
@@ -52,14 +52,19 @@
           </div>
           <p>Discover the full Maison Lumière carte. Every dish is prepared with care and inspired by the seasons.</p>
         </div>
-        <nav class="menu-categories" aria-label="Menu categories">
-          <a href="#starters">To begin</a>
-          <a href="#mains">From the land</a>
-          <a href="#seafood">From the sea</a>
-          <a href="#vegetarian">From the garden</a>
-          <a href="#desserts">Something sweet</a>
-          <a href="#drinks">To drink</a>
-        </nav>
+        <div class="menu-category-picker">
+          <label class="sr-only" for="menu-category-select">Choose a menu category</label>
+          <select id="menu-category-select" aria-label="Choose a menu category">
+            <option value="#menu">Savor all</option>
+            <option value="#starters">To begin</option>
+            <option value="#mains">From the land</option>
+            <option value="#seafood">From the sea</option>
+            <option value="#vegetarian">From the garden</option>
+            <option value="#desserts">Something sweet</option>
+            <option value="#drinks">To drink</option>
+          </select>
+          <span aria-hidden="true">⌄</span>
+        </div>
         <div class="menu-grid">
           <article class="menu-category" id="starters">
             <p class="menu-category-label">01 <span>À PARTAGER</span></p>
@@ -128,6 +133,19 @@
             </ul>
           </article>
         </div>
+        <section class="order-summary" id="order-summary" aria-labelledby="order-summary-title">
+          <p class="eyebrow">MAISON LUMIÈRE · À TABLE</p>
+          <h2 id="order-summary-title">Your order.</h2>
+          <p class="order-summary-intro">A little something for your table.</p>
+          <p class="order-empty">Your order is empty. Add a dish from the menu to begin.</p>
+          <ul class="order-items" aria-label="Items in your order"></ul>
+          <div class="order-total"><span>Total</span><strong>₱0</strong></div>
+          <p class="order-status" aria-live="polite"></p>
+          <div class="order-summary-actions">
+            <button class="order-clear" type="button">Clear order</button>
+            <button class="order-submit" type="button">Place order <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
         <a class="button button-menu menu-booking-link" href="index.html#reserve">Save a seat at our table <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -164,29 +182,6 @@
     </section>
   </main>
 
-  <button class="order-cart-toggle" type="button" aria-controls="order-dialog">
-    <span>Your order</span>
-    <span class="order-count">0</span>
-    <span class="order-cart-total">₱0</span>
-  </button>
-  <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
-    <form method="dialog">
-      <button class="order-dialog-close" aria-label="Close your order">×</button>
-    </form>
-    <p class="eyebrow">MAISON LUMIÈRE · À TABLE</p>
-    <h2 id="order-dialog-title">Your order.</h2>
-    <p class="order-dialog-intro">A little something for your table.</p>
-    <p class="order-empty">Your order is empty. Add a dish from the menu to begin.</p>
-    <ul class="order-items" aria-label="Items in your order"></ul>
-    <div class="order-total"><span>Total</span><strong>₱0</strong></div>
-    <p class="order-status" aria-live="polite"></p>
-    <div class="order-dialog-actions">
-      <button class="order-clear" type="button">Clear order</button>
-      <button class="order-submit" type="button">Place demo order <span aria-hidden="true">→</span></button>
-    </div>
-    <p class="order-demo-note">Demo only — your order is not sent to the restaurant.</p>
-  </dialog>
-
   <footer class="site-footer">
     <a class="brand footer-brand" href="index.html" aria-label="Maison Lumière home">
       <span class="brand-mark" aria-hidden="true"><span></span></span>
@@ -196,5 +191,11 @@
     <a href="#top" class="back-top">Back to the top <span aria-hidden="true">↑</span></a>
     <small class="copyright">© <span id="year"></span> Maison Lumière</small>
   </footer>
+  <button class="order-cart-toggle" type="button" aria-controls="order-summary">
+    <span>Your order</span>
+    <span class="order-count">0</span>
+    <span class="order-cart-total">₱0</span>
+  </button>
+  <div class="order-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
