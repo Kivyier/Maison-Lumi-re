@@ -262,10 +262,10 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
 .footer-brand .brand-mark { width: 24px; height: 24px; flex-basis: 24px; }
 .footer-brand .brand-mark span { width: 6px; height: 6px; }
 .footer-brand .brand-name { font-size: 16px; }
-.site-footer > p { margin: 0; color: var(--footer-muted); font: italic 14px var(--serif); }
-.back-top { font-size: 10px; }
+.site-footer > p { order: 3; width: 100%; margin: 0; color: var(--footer-muted); font: italic 14px var(--serif); text-align: center; }
+.back-top { order: 2; font-size: 10px; }
 .back-top span { margin-left: 9px; color: var(--gold); }
-.copyright { width: 100%; margin-top: -12px; color: var(--footer-muted); font-size: 9px; text-align: center; }
+.copyright { order: 4; width: 100%; margin-top: -12px; color: var(--footer-muted); font-size: 9px; text-align: center; }
 
 @media (min-width: 1400px) {
   .hero-copy { padding-left: max(10.3%, calc((100vw - 1130px) / 2)); }
@@ -358,9 +358,7 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
   .reservation-aside { margin-top: 24px; }
   .form-row { grid-template-columns: 1fr; gap: 18px; }
   .site-footer { padding: 29px 7%; justify-content: space-between; }
-  .site-footer > p { order: 3; width: 100%; }
-  .back-top { order: 2; }
-  .copyright { order: 4; margin-top: 0; text-align: left; }
+  .copyright { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
