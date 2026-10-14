@@ -131,8 +131,10 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
 .food-gallery-heading h2 em { color: var(--olive-light); }
 .food-gallery-heading > p { max-width: 340px; margin: 0 4% 5px 20px; color: var(--muted); font-size: 14px; line-height: 1.8; }
 .food-gallery-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
-.food-gallery-card { min-width: 0; margin: 0; }
-.food-gallery-card img { width: 100%; height: clamp(170px, 19vw, 270px); object-fit: cover; }
+.food-gallery-card { position: relative; min-width: 0; margin: 0; overflow: hidden; background: var(--charcoal); }
+.food-gallery-card::after { position: absolute; inset: 40% 0 0; background: linear-gradient(transparent, rgba(26, 26, 26, .78)); content: ""; pointer-events: none; }
+.food-gallery-card img { width: 100%; height: clamp(170px, 19vw, 270px); object-fit: cover; transition: transform .35s ease; }
+.food-gallery-card:hover img { transform: scale(1.04); }
 .food-gallery-card figcaption { display: flex; align-items: center; gap: 10px; padding-top: 13px; font: italic 16px/1.4 var(--serif); }
 .food-gallery-card figcaption span { color: var(--gold-ink); font: 600 9px var(--sans); letter-spacing: .12em; }
 .section-kicker-light { margin-bottom: 46px; color: var(--muted-light); }
