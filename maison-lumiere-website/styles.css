@@ -119,7 +119,7 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
 .menu-page-hero-copy h1 { margin-bottom: 20px; font: 400 clamp(54px, 6.3vw, 82px)/1 var(--serif); letter-spacing: -.065em; }
 .menu-page-hero-copy h1 em { color: var(--olive-light); }
 .menu-page-hero-copy > p:not(.eyebrow) { max-width: 380px; margin-bottom: 27px; color: var(--muted); font-size: 15px; line-height: 1.8; }
-.menu-page-hero-image { position: absolute; inset: 0 0 0 49%; background-color: var(--cream); background-image: linear-gradient(90deg, var(--cream) 0%, rgba(246,242,233,.09) 28%, rgba(20,19,16,.08) 100%), url("images/menu-hero.jpg"); background-position: center, right center; background-size: 100% 100%, auto 100%; background-repeat: no-repeat; }
+.menu-page-hero-image { position: absolute; inset: 0 0 0 49%; background-color: var(--cream); background-image: linear-gradient(90deg, var(--cream) 0%, rgba(246,242,233,.09) 28%, rgba(20,19,16,.08) 100%), url("images/index_img-12.jpg"); background-position: center, right center; background-size: 100% 100%, auto 100%; background-repeat: no-repeat; }
 .menu-page-section { padding-top: 80px; }
 .menu-booking-link { display: flex; width: fit-content; margin: 54px auto 0; }
 .site-nav > a[aria-current="page"] { color: var(--gold-soft); }
