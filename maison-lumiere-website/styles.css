@@ -141,7 +141,7 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
 .menu-heading .eyebrow { color: var(--gold-soft); }
 .menu-heading h2 { margin-bottom: 0; }
 .menu-heading h2 em { color: var(--gold-soft); }
-.menu-heading > p { width: 285px; margin: 0 5% 4px 30px; color: var(--muted-light); font-size: 11px; line-height: 1.9; }
+.menu-heading > p { width: min(340px, 38%); margin: 0 5% 4px 30px; color: var(--muted-light); font-size: 14px; line-height: 1.8; }
 .menu-categories { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 39px; }
 .menu-categories a { padding: 10px 13px; border: 1px solid var(--line-dark); color: var(--ivory); font-size: 9px; transition: color .2s ease, border-color .2s ease, background .2s ease; }
 .menu-categories a:hover, .menu-categories a:focus-visible { border-color: var(--gold); background: var(--gold-wash); color: var(--gold-soft); }
