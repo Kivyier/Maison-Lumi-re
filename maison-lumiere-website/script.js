@@ -16,38 +16,156 @@ siteNav.addEventListener("click", (event) => {
 
 document.querySelector("#year").textContent = new Date().getFullYear();
 
+const menuPreview = document.querySelector(".menu-preview");
+if (menuPreview) {
+  const previewGrid = menuPreview.querySelector(".menu-preview-grid");
+  const previewDescription = menuPreview.querySelector(".menu-heading > p");
+  const defaultPreviewDescription = previewDescription.textContent;
+
+  function showMenuPreviewDescription(event) {
+    const card = event.target.closest(".menu-preview-card");
+    if (!card || !previewGrid.contains(card) || card.contains(event.relatedTarget)) {
+      return;
+    }
+
+    previewDescription.textContent = card.dataset.previewDescription;
+  }
+
+  function restoreMenuPreviewDescription(event) {
+    const card = event.target.closest(".menu-preview-card");
+    if (!card || !previewGrid.contains(card) || card.contains(event.relatedTarget)) {
+      return;
+    }
+
+    previewDescription.textContent = defaultPreviewDescription;
+  }
+
+  previewGrid.addEventListener("mouseover", showMenuPreviewDescription);
+  previewGrid.addEventListener("mouseout", restoreMenuPreviewDescription);
+  previewGrid.addEventListener("focusin", showMenuPreviewDescription);
+  previewGrid.addEventListener("focusout", restoreMenuPreviewDescription);
+}
+
 const reservationForm = document.querySelector(".reservation-form");
 if (reservationForm) {
   const dateInput = reservationForm.elements.date;
+  const reservationToast = document.querySelector(".reservation-toast");
   const today = new Date();
+  let reservationToastTimeout;
   dateInput.min = new Date(today.getTime() - today.getTimezoneOffset() * 60_000)
     .toISOString()
     .slice(0, 10);
 
+  function showReservationToast(message) {
+    reservationToast.textContent = message;
+    reservationToast.classList.add("is-visible");
+    window.clearTimeout(reservationToastTimeout);
+    reservationToastTimeout = window.setTimeout(() => {
+      reservationToast.classList.remove("is-visible");
+    }, 4000);
+  }
+
+  function updateReservationSelection(event) {
+    if (!event.target.matches('[name="date"], [name="time"], [name="guests"]')) {
+      return;
+    }
+
+    const selectedDate = dateInput.value
+      ? new Date(`${dateInput.value}T00:00:00`).toLocaleDateString("en-PH", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        })
+      : "";
+    const selection = [
+      reservationForm.querySelector('[name="guests"]').value,
+      reservationForm.querySelector('[name="time"]').value,
+      selectedDate,
+    ]
+      .filter(Boolean)
+      .join(" · ");
+
+    if (selection) showReservationToast(`Reservation details updated: ${selection}.`);
+  }
+
+  reservationForm.addEventListener("change", updateReservationSelection);
   reservationForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    reservationForm.querySelector(".form-note").textContent =
-      "Merci! This demo form is ready to connect to your reservation service.";
+    showReservationToast("Thank you! Your reservation request is ready.");
   });
 }
 
 const menuGrid = document.querySelector(".menu-grid");
-const orderDialog = document.querySelector("#order-dialog");
-if (menuGrid && orderDialog) {
+const orderSummary = document.querySelector("#order-summary");
+const menuCategorySelect = document.querySelector("#menu-category-select");
+if (menuCategorySelect && menuGrid) {
+  const menuCategories = [...menuGrid.querySelectorAll(".menu-category")];
+  let categoryScrollFrame = 0;
+
+  const updateMenuCategorySelection = () => {
+    categoryScrollFrame = 0;
+    const activationLine =
+      document.querySelector(".site-header").getBoundingClientRect().height + 48;
+    const gridBounds = menuGrid.getBoundingClientRect();
+
+    if (gridBounds.top > activationLine || gridBounds.bottom < activationLine) {
+      menuCategorySelect.value = "#menu";
+      return;
+    }
+
+    let activeCategory = menuCategories[0];
+    for (const category of menuCategories) {
+      if (category.getBoundingClientRect().top <= activationLine) {
+        activeCategory = category;
+      } else {
+        break;
+      }
+    }
+    menuCategorySelect.value = `#${activeCategory.id}`;
+  };
+
+  const scheduleMenuCategorySelectionUpdate = () => {
+    if (!categoryScrollFrame) {
+      categoryScrollFrame = window.requestAnimationFrame(
+        updateMenuCategorySelection,
+      );
+    }
+  };
+
+  menuCategorySelect.addEventListener("change", () => {
+    const target = document.querySelector(menuCategorySelect.value);
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  window.addEventListener("scroll", scheduleMenuCategorySelectionUpdate, {
+    passive: true,
+  });
+  window.addEventListener("resize", scheduleMenuCategorySelectionUpdate);
+  updateMenuCategorySelection();
+}
+
+if (menuGrid && orderSummary) {
   const cartButton = document.querySelector(".order-cart-toggle");
+  const orderToast = document.querySelector(".order-toast");
   const countDisplay = cartButton.querySelector(".order-count");
   const cartTotalDisplay = cartButton.querySelector(".order-cart-total");
-  const itemList = orderDialog.querySelector(".order-items");
-  const emptyMessage = orderDialog.querySelector(".order-empty");
-  const totalDisplay = orderDialog.querySelector(".order-total strong");
-  const statusMessage = orderDialog.querySelector(".order-status");
-  const clearButton = orderDialog.querySelector(".order-clear");
-  const submitButton = orderDialog.querySelector(".order-submit");
+  const itemList = orderSummary.querySelector(".order-items");
+  const emptyMessage = orderSummary.querySelector(".order-empty");
+  const totalDisplay = orderSummary.querySelector(".order-total strong");
+  const statusMessage = orderSummary.querySelector(".order-status");
+  const clearButton = orderSummary.querySelector(".order-clear");
+  const submitButton = orderSummary.querySelector(".order-submit");
   const cart = new Map();
+  let toastTimeout;
 
   const formatPrice = (price) => `₱${price.toLocaleString("en-PH")}`;
-  const getItemCount = () =>
-    [...cart.values()].reduce((total, item) => total + item.quantity, 0);
+  const showOrderToast = (message) => {
+    orderToast.textContent = message;
+    orderToast.classList.add("is-visible");
+    window.clearTimeout(toastTimeout);
+    toastTimeout = window.setTimeout(() => {
+      orderToast.classList.remove("is-visible");
+    }, 4000);
+  };
   const getOrderTotal = () =>
     [...cart.values()].reduce(
       (total, item) => total + item.price * item.quantity,
@@ -55,16 +173,18 @@ if (menuGrid && orderDialog) {
     );
 
   const renderOrder = () => {
-    const itemCount = getItemCount();
+    const itemCount = [...cart.values()].reduce(
+      (total, item) => total + item.quantity,
+      0,
+    );
     const orderTotal = getOrderTotal();
-    cartButton.hidden = itemCount === 0;
     countDisplay.textContent = String(itemCount);
     cartTotalDisplay.textContent = formatPrice(orderTotal);
     cartButton.setAttribute(
       "aria-label",
-      `Open your order, ${itemCount} ${itemCount === 1 ? "item" : "items"}, ${formatPrice(orderTotal)}`,
+      `View your order, ${itemCount} ${itemCount === 1 ? "item" : "items"}, ${formatPrice(orderTotal)}`,
     );
-    emptyMessage.hidden = itemCount > 0;
+    emptyMessage.hidden = cart.size > 0;
     itemList.replaceChildren();
 
     for (const [name, item] of cart) {
@@ -119,8 +239,8 @@ if (menuGrid && orderDialog) {
     }
 
     totalDisplay.textContent = formatPrice(orderTotal);
-    clearButton.disabled = itemCount === 0;
-    submitButton.disabled = itemCount === 0;
+    clearButton.disabled = cart.size === 0;
+    submitButton.disabled = cart.size === 0;
   };
 
   menuGrid.querySelectorAll(".menu-list li").forEach((menuItem) => {
@@ -142,22 +262,41 @@ if (menuGrid && orderDialog) {
     addIcon.setAttribute("aria-hidden", "true");
     addIcon.textContent = "+";
     addButton.append(addIcon);
-    addButton.addEventListener("click", () => {
-      const item = cart.get(name) || { price, quantity: 0 };
-      item.quantity += 1;
-      cart.set(name, item);
-      statusMessage.textContent = `${name} added to your order.`;
-      renderOrder();
-    });
     details.append(addButton);
   });
 
-  cartButton.addEventListener("click", () => {
-    statusMessage.textContent = "";
-    orderDialog.showModal();
+  menuGrid.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest(".add-to-order");
+    if (!button) return;
+
+    const menuItem = button.closest("li");
+    const name = menuItem.querySelector("h4").textContent.trim();
+    const priceText = menuItem.querySelector(".menu-price").textContent;
+    const price = Number(priceText.replace(/[^\d]/g, ""));
+    const item = cart.get(name) || { price, quantity: 0 };
+    item.quantity += 1;
+    cart.set(name, item);
+    const message = `${name} added to your order.`;
+    statusMessage.textContent = message;
+    renderOrder();
+    showOrderToast(message);
   });
 
+  cartButton.addEventListener("click", () => {
+    orderSummary.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  const orderVisibilityObserver = new IntersectionObserver(
+    ([entry]) => {
+      cartButton.classList.toggle("is-hidden", entry.isIntersecting);
+    },
+    { threshold: 0.15 },
+  );
+  orderVisibilityObserver.observe(orderSummary);
+
   itemList.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
     const button = event.target.closest("button[data-order-action]");
     if (!button) return;
 
@@ -184,12 +323,10 @@ if (menuGrid && orderDialog) {
   });
 
   submitButton.addEventListener("click", () => {
-    statusMessage.textContent =
-      "Your demo order is ready, but it has not been sent to the restaurant.";
+    const message = "Your order has been placed.";
+    statusMessage.textContent = message;
+    showOrderToast(message);
   });
 
-  orderDialog.addEventListener("click", (event) => {
-    if (event.target === orderDialog) orderDialog.close();
-  });
   renderOrder();
 }

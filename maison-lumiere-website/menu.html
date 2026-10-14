@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f2e9">
-  <meta name="description" content="Explore the Maison Lumière menu: French bistro favourites, seasonal plates, desserts, and drinks in Philippine pesos.">
+  <meta name="description" content="Explore the Maison Lumière menu: French bistro favourites, seasonal plates, desserts, and drinks.">
   <title>Our Menu — Maison Lumière</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +25,7 @@
     <nav class="site-nav" id="site-nav" aria-label="Main navigation">
       <a href="index.html#story">Our story</a>
       <a href="menu.html" aria-current="page">Menu</a>
+      <a href="#order-summary">Order</a>
       <a href="index.html#location">Find us</a>
       <a class="nav-booking" href="index.html#reserve">Book a table <span aria-hidden="true">↗</span></a>
     </nav>
@@ -38,7 +39,7 @@
         <p>French favourites, seasonal ingredients, and something lovely for every course.</p>
         <a class="button button-dark" href="#starters">Browse the menu <span aria-hidden="true">↓</span></a>
       </div>
-      <div class="menu-page-hero-image" role="img" aria-label="A server bringing a plated dish to the table"></div>
+      <div class="menu-page-hero-image" role="img" aria-label="A seafood dish with pasta, herbs, and mussels"></div>
     </section>
 
     <section class="menu-section menu-page-section" id="menu">
@@ -49,16 +50,21 @@
             <p class="eyebrow">Made for sharing and staying awhile</p>
             <h2>From first bite<br><em>to last sip.</em></h2>
           </div>
-          <p>Discover the full Maison Lumière carte. Every dish is prepared with care and priced in Philippine pesos.</p>
+          <p>Discover the full Maison Lumière carte. Every dish is prepared with care and inspired by the seasons.</p>
         </div>
-        <nav class="menu-categories" aria-label="Menu categories">
-          <a href="#starters">To begin</a>
-          <a href="#mains">From the land</a>
-          <a href="#seafood">From the sea</a>
-          <a href="#vegetarian">From the garden</a>
-          <a href="#desserts">Something sweet</a>
-          <a href="#drinks">To drink</a>
-        </nav>
+        <div class="menu-category-picker">
+          <label class="sr-only" for="menu-category-select">Choose a menu category</label>
+          <select id="menu-category-select" aria-label="Choose a menu category">
+            <option value="#menu">Savor all</option>
+            <option value="#starters">To begin</option>
+            <option value="#mains">From the land</option>
+            <option value="#seafood">From the sea</option>
+            <option value="#vegetarian">From the garden</option>
+            <option value="#desserts">Something sweet</option>
+            <option value="#drinks">To drink</option>
+          </select>
+          <span aria-hidden="true">⌄</span>
+        </div>
         <div class="menu-grid">
           <article class="menu-category" id="starters">
             <p class="menu-category-label">01 <span>À PARTAGER</span></p>
@@ -127,6 +133,19 @@
             </ul>
           </article>
         </div>
+        <section class="order-summary" id="order-summary" aria-labelledby="order-summary-title">
+          <p class="eyebrow">MAISON LUMIÈRE · À TABLE</p>
+          <h2 id="order-summary-title">Your order.</h2>
+          <p class="order-summary-intro">A little something for your table.</p>
+          <p class="order-empty">Your order is empty. Add a dish from the menu to begin.</p>
+          <ul class="order-items" aria-label="Items in your order"></ul>
+          <div class="order-total"><span>Total</span><strong>₱0</strong></div>
+          <p class="order-status" aria-live="polite"></p>
+          <div class="order-summary-actions">
+            <button class="order-clear" type="button">Clear order</button>
+            <button class="order-submit" type="button">Place order <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
         <a class="button button-menu menu-booking-link" href="index.html#reserve">Save a seat at our table <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -158,65 +177,10 @@
             <img src="images/index_img-10.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
             <figcaption><span>04</span> From our kitchen</figcaption>
           </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-11.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>05</span> The market table</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-12.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>06</span> French classics</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-13.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>07</span> A seasonal plate</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-14.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>08</span> Made for sharing</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-15.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>09</span> From the kitchen</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-16.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>10</span> À la carte</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-17.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>11</span> Fresh from the market</figcaption>
-          </figure>
-          <figure class="food-gallery-card">
-            <img src="images/index_img-18.jpg" alt="A French dish from the Maison Lumière menu" loading="lazy">
-            <figcaption><span>12</span> Bon appétit</figcaption>
-          </figure>
         </div>
       </div>
     </section>
   </main>
-
-  <button class="order-cart-toggle" type="button" aria-controls="order-dialog" hidden>
-    <span>Your order</span>
-    <span class="order-count">0</span>
-    <span class="order-cart-total">₱0</span>
-  </button>
-  <dialog class="order-dialog" id="order-dialog" aria-labelledby="order-dialog-title">
-    <form method="dialog">
-      <button class="order-dialog-close" aria-label="Close your order">×</button>
-    </form>
-    <p class="eyebrow">MAISON LUMIÈRE · À TABLE</p>
-    <h2 id="order-dialog-title">Your order.</h2>
-    <p class="order-dialog-intro">A little something for your table.</p>
-    <p class="order-empty">Your order is empty. Add a dish from the menu to begin.</p>
-    <ul class="order-items" aria-label="Items in your order"></ul>
-    <div class="order-total"><span>Total</span><strong>₱0</strong></div>
-    <p class="order-status" aria-live="polite"></p>
-    <div class="order-dialog-actions">
-      <button class="order-clear" type="button">Clear order</button>
-      <button class="order-submit" type="button">Place demo order <span aria-hidden="true">→</span></button>
-    </div>
-    <p class="order-demo-note">Demo only — your order is not sent to the restaurant.</p>
-  </dialog>
 
   <footer class="site-footer">
     <a class="brand footer-brand" href="index.html" aria-label="Maison Lumière home">
@@ -227,5 +191,11 @@
     <a href="#top" class="back-top">Back to the top <span aria-hidden="true">↑</span></a>
     <small class="copyright">© <span id="year"></span> Maison Lumière</small>
   </footer>
+  <button class="order-cart-toggle" type="button" aria-controls="order-summary">
+    <span>Your order</span>
+    <span class="order-count">0</span>
+    <span class="order-cart-total">₱0</span>
+  </button>
+  <div class="order-toast" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
