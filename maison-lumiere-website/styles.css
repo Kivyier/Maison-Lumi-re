@@ -259,6 +259,14 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
 .form-note { margin: -8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
 
 .site-footer { min-height: 130px; padding: 30px 5.8%; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; background: var(--olive); color: var(--ivory); }
+.footer-location { order: -1; width: min(1130px, 100%); margin: 0 auto 6px; padding-bottom: 22px; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line-dark); }
+.footer-location-kicker { display: flex; gap: 14px; margin: 0; color: var(--muted-light); font-size: 9px; letter-spacing: .14em; }
+.footer-location-kicker span:first-child { color: var(--gold-soft); }
+.footer-location-copy { text-align: right; }
+.footer-location-copy > p { margin: 0 0 5px; color: var(--footer-muted); font-size: 11px; }
+.footer-location-link { font: italic 22px/1.2 var(--serif); }
+.footer-location-link span { margin-left: 8px; color: var(--gold-soft); font: 14px var(--sans); }
+.footer-location-link:hover { color: var(--gold-soft); }
 .footer-brand .brand-mark { width: 24px; height: 24px; flex-basis: 24px; }
 .footer-brand .brand-mark span { width: 6px; height: 6px; }
 .footer-brand .brand-name { font-size: 16px; }
@@ -358,6 +366,9 @@ h1 em, h2 em { color: var(--olive-light); font-weight: 400; }
   .reservation-aside { margin-top: 24px; }
   .form-row { grid-template-columns: 1fr; gap: 18px; }
   .site-footer { padding: 29px 7%; justify-content: space-between; }
+  .footer-location { align-items: flex-start; flex-direction: column; gap: 15px; margin-bottom: 0; padding-bottom: 18px; }
+  .footer-location-copy { text-align: left; }
+  .footer-location-link { font-size: 20px; }
   .copyright { margin-top: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
